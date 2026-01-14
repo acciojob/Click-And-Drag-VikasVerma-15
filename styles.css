@@ -9,22 +9,22 @@ body {
   user-select: none;
 }
 
-.container {
+.items {
   position: relative;
-  width: 440px; /* 4 cubes * 100px + gaps */
-  height: 440px;
-  border: 2px solid #333;
-  background: #fff;
+  width: 440px;   /* 4 cubes * 100px + 3 * 10px gap */
+  height: 440px;  /* same as width for square container */
+  border: 2px solid black;
+  background-color: white;
 }
 
 .cube {
   position: absolute;
   width: 100px;
   height: 100px;
-  background-color: skyblue;
-  border: 2px solid #555;
   line-height: 100px;
   text-align: center;
   font-weight: bold;
+  border: 2px solid #333;
+  background-color: skyblue;
   cursor: pointer;
 }
