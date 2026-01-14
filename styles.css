@@ -9,26 +9,22 @@ body {
   user-select: none;
 }
 
-.items {
+.container {
   position: relative;
-  width: 600px;
-  height: 600px;
-  border: 2px solid black;
-  background: white;
+  width: 440px; /* 4 cubes * 100px + gaps */
+  height: 440px;
+  border: 2px solid #333;
+  background: #fff;
 }
 
-.item {
+.cube {
   position: absolute;
   width: 100px;
   height: 100px;
+  background-color: skyblue;
+  border: 2px solid #555;
   line-height: 100px;
   text-align: center;
   font-weight: bold;
   cursor: pointer;
-  border: 1px solid #333;
-  background-color: skyblue;
 }
-
-/* Optional: different colors for each cube */
-.item:nth-child(odd) { background-color: #4CAF50; }
-.item:nth-child(even) { background-color: #FF9800; }
