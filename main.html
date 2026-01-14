@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Click and Drag</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="items">
@@ -34,9 +34,69 @@
     <div class="item item25">25</div>
   </div>
 
-<script>
-//Your code goes here 
-</script>
+  <!-- Drag-and-drop script -->
+  <script>
+    const container = document.querySelector('.items');
+    const cubes = document.querySelectorAll('.item');
 
-  </body>
+    let selectedCube = null;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    // Initialize cubes to absolute positions in a grid
+    const containerRect = container.getBoundingClientRect();
+    const gridCols = 5; // 5 cubes per row
+    const cubeSize = 100; // width and height in px
+    const gap = 10; // gap between cubes
+
+    cubes.forEach((cube, index) => {
+      cube.style.position = 'absolute';
+      const row = Math.floor(index / gridCols);
+      const col = index % gridCols;
+
+      cube.style.left = col * (cubeSize + gap) + 'px';
+      cube.style.top = row * (cubeSize + gap) + 'px';
+      cube.style.width = cubeSize + 'px';
+      cube.style.height = cubeSize + 'px';
+      cube.style.margin = '0';
+      cube.style.transform = 'none';
+      cube.style.cursor = 'pointer';
+
+      // Start dragging
+      cube.addEventListener('mousedown', (e) => {
+        selectedCube = cube;
+        const rect = cube.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+
+        cube.style.zIndex = 1000;
+        cube.style.cursor = 'grabbing';
+      });
+    });
+
+    // Dragging
+    document.addEventListener('mousemove', (e) => {
+      if (!selectedCube) return;
+
+      const containerRect = container.getBoundingClientRect();
+      let x = e.clientX - containerRect.left - offsetX;
+      let y = e.clientY - containerRect.top - offsetY;
+
+      // Keep inside container
+      x = Math.max(0, Math.min(container.clientWidth - selectedCube.offsetWidth, x));
+      y = Math.max(0, Math.min(container.clientHeight - selectedCube.offsetHeight, y));
+
+      selectedCube.style.left = x + 'px';
+      selectedCube.style.top = y + 'px';
+    });
+
+    // Drop
+    document.addEventListener('mouseup', () => {
+      if (!selectedCube) return;
+      selectedCube.style.zIndex = '';
+      selectedCube.style.cursor = 'pointer';
+      selectedCube = null;
+    });
+  </script>
+</body>
 </html>
