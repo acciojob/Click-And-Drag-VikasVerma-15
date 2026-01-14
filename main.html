@@ -2,80 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Click and Drag</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Click and Drag Cubes</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      font-family: sans-serif;
+      background: #f0f0f0;
+      user-select: none;
+      margin: 0;
+    }
+
+    .items {
+      position: relative;
+      width: 600px; /* container width */
+      height: 600px; /* container height */
+      border: 2px solid black;
+      background: white;
+    }
+
+    .item {
+      position: absolute; /* essential for dragging */
+      width: 100px;
+      height: 100px;
+      background-color: skyblue;
+      text-align: center;
+      line-height: 100px;
+      font-size: 24px;
+      font-weight: bold;
+      border: 1px solid #333;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <div class="items">
-    <div class="item item1">01</div>
-    <div class="item item2">02</div>
-    <div class="item item3">03</div>
-    <div class="item item4">04</div>
-    <div class="item item5">05</div>
-    <div class="item item6">06</div>
-    <div class="item item7">07</div>
-    <div class="item item8">08</div>
-    <div class="item item9">09</div>
-    <div class="item item10">10</div>
-    <div class="item item11">11</div>
-    <div class="item item12">12</div>
-    <div class="item item13">13</div>
-    <div class="item item14">14</div>
-    <div class="item item15">15</div>
-    <div class="item item16">16</div>
-    <div class="item item17">17</div>
-    <div class="item item18">18</div>
-    <div class="item item19">19</div>
-    <div class="item item20">20</div>
-    <div class="item item21">21</div>
-    <div class="item item22">22</div>
-    <div class="item item23">23</div>
-    <div class="item item24">24</div>
-    <div class="item item25">25</div>
+  <div class="items" id="container">
+    <!-- 25 cubes -->
+    <div class="item">01</div>
+    <div class="item">02</div>
+    <div class="item">03</div>
+    <div class="item">04</div>
+    <div class="item">05</div>
+    <div class="item">06</div>
+    <div class="item">07</div>
+    <div class="item">08</div>
+    <div class="item">09</div>
+    <div class="item">10</div>
+    <div class="item">11</div>
+    <div class="item">12</div>
+    <div class="item">13</div>
+    <div class="item">14</div>
+    <div class="item">15</div>
+    <div class="item">16</div>
+    <div class="item">17</div>
+    <div class="item">18</div>
+    <div class="item">19</div>
+    <div class="item">20</div>
+    <div class="item">21</div>
+    <div class="item">22</div>
+    <div class="item">23</div>
+    <div class="item">24</div>
+    <div class="item">25</div>
   </div>
 
-  <!-- Drag-and-drop script -->
   <script>
-    const container = document.querySelector('.items');
+    const container = document.getElementById('container');
     const cubes = document.querySelectorAll('.item');
 
     let selectedCube = null;
     let offsetX = 0;
     let offsetY = 0;
 
-    // Initialize cubes to absolute positions in a grid
-    const containerRect = container.getBoundingClientRect();
-    const gridCols = 5; // 5 cubes per row
-    const cubeSize = 100; // width and height in px
-    const gap = 10; // gap between cubes
+    // Initialize cubes in a 5x5 grid
+    const gridCols = 5;
+    const cubeSize = 100;
+    const gap = 10;
 
     cubes.forEach((cube, index) => {
-      cube.style.position = 'absolute';
       const row = Math.floor(index / gridCols);
       const col = index % gridCols;
 
       cube.style.left = col * (cubeSize + gap) + 'px';
       cube.style.top = row * (cubeSize + gap) + 'px';
-      cube.style.width = cubeSize + 'px';
-      cube.style.height = cubeSize + 'px';
-      cube.style.margin = '0';
-      cube.style.transform = 'none';
-      cube.style.cursor = 'pointer';
+    });
 
-      // Start dragging
-      cube.addEventListener('mousedown', (e) => {
+    // Mouse down to start drag
+    cubes.forEach(cube => {
+      cube.addEventListener('mousedown', e => {
         selectedCube = cube;
         const rect = cube.getBoundingClientRect();
         offsetX = e.clientX - rect.left;
         offsetY = e.clientY - rect.top;
-
         cube.style.zIndex = 1000;
         cube.style.cursor = 'grabbing';
       });
     });
 
-    // Dragging
-    document.addEventListener('mousemove', (e) => {
+    // Mouse move to drag
+    document.addEventListener('mousemove', e => {
       if (!selectedCube) return;
 
       const containerRect = container.getBoundingClientRect();
@@ -90,7 +116,7 @@
       selectedCube.style.top = y + 'px';
     });
 
-    // Drop
+    // Mouse up to drop
     document.addEventListener('mouseup', () => {
       if (!selectedCube) return;
       selectedCube.style.zIndex = '';
