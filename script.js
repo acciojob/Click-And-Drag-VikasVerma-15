@@ -20,25 +20,20 @@ cubes.forEach(cube => {
     const rect = cube.getBoundingClientRect();
     offsetX = e.clientX - rect.left;
     offsetY = e.clientY - rect.top;
-
-    // Bring cube to front
     cube.style.zIndex = 1000;
-
-    // Optional: add visual cue
     cube.style.boxShadow = '0 0 20px rgba(0,0,0,0.5)';
   });
 });
 
-// Handle mouse move
 document.addEventListener('mousemove', (e) => {
   if (!selectedCube) return;
 
   let x = e.clientX - containerRect.left - offsetX;
   let y = e.clientY - containerRect.top - offsetY;
 
-  // Boundary constraints
-  x = Math.max(0, Math.min(container.clientWidth - selectedCube.offsetWidth, x));
+ x = Math.max(0, Math.min(container.clientWidth - selectedCube.offsetWidth, x));
   y = Math.max(0, Math.min(container.clientHeight - selectedCube.offsetHeight, y));
+
 
   selectedCube.style.left = x + 'px';
   selectedCube.style.top = y + 'px';
