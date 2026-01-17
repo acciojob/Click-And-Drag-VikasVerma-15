@@ -1,4 +1,4 @@
-const container = document.getElementById("container");
+const container = document.querySelector(".items");
 const cubes = document.querySelectorAll(".cube");
 
 let selectedCube = null;
@@ -7,7 +7,7 @@ let offsetY = 0;
 let isDragging = false;
 
 /* Arrange cubes in grid */
-const cols = 4;
+const cols = 2;
 const gap = 10;
 
 cubes.forEach((cube, index) => {
@@ -48,6 +48,7 @@ container.addEventListener("mousemove", e => {
 
 /* Mouse Up */
 document.addEventListener("mouseup", () => {
-  selectedCube = null;
   isDragging = false;
+  selectedCube = null;
 });
+
