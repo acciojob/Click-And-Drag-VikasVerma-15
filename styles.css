@@ -1,6 +1,10 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .items {
   width: 500px;
-  height: 400px;
   border: 2px solid black;
   margin: 20px auto;
   position: relative;
