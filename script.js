@@ -1,4 +1,4 @@
-const container = document.querySelector(".items");
+const container = document.getElementById("container");
 const cubes = document.querySelectorAll(".cube");
 
 let selectedCube = null;
@@ -30,8 +30,8 @@ cubes.forEach(cube => {
   });
 });
 
-/* Mouse Move */
-container.addEventListener("mousemove", e => {
+/* ✅ MUST BE document (Cypress fires here) */
+document.addEventListener("mousemove", e => {
   if (!isDragging || !selectedCube) return;
 
   const rect = container.getBoundingClientRect();
